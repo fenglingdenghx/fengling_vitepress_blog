@@ -4,7 +4,7 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
   title: "Fengling 知识笔记",
   description: "fengling blog",
-  base: '/',
+  base: '/fengling_vitepress_blog/',
   lang: 'zh-US',
   lastUpdated: true,
   themeConfig: {
