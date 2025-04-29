@@ -23,8 +23,8 @@ export default defineConfig({
    * 时间戳将包含在每个页面的页面数据中，可通过 useData 访问。
    */
   lastUpdated: true,
-  // 当设置为 true 时，VitePress 将从 URL 中删除 .html 后缀。另请参阅生成简洁的 URL。
-  cleanUrls: true,
+  // 当设置为 true 时，VitePress 将从 URL 中删除 .html 后缀。另请参阅生成简洁的 URL。需要服务端支持
+  cleanUrls: false,
   // 主题相关配置
   themeConfig: {
     /**
