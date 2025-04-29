@@ -1,36 +1,57 @@
-import { defineConfig } from 'vitepress'
+import { DefaultTheme, defineConfig, UserConfig } from 'vitepress'
+import { withSidebar } from 'vitepress-sidebar'
 
-// https://vitepress.dev/reference/site-config
-export default defineConfig({
-  title: "Fengling 知识笔记",
+// user vitepress options
+const userConfig: UserConfig<DefaultTheme.Config> = {
+  title: "Fengling 笔记",
   description: "fengling blog",
   base: '/fengling_vitepress_blog/',
   lang: 'zh-US',
   lastUpdated: true,
   themeConfig: {
-    // https://vitepress.dev/reference/default-theme-config
+    search: {
+      provider: 'local',
+      options: {
+        translations: {
+          button: {
+            buttonText: '搜索文档',
+            buttonAriaLabel: '搜索文档'
+          },
+          modal: {
+            noResultsText: '无法找到相关结果',
+            resetButtonTitle: '清除',
+            footer: {
+              selectText: '选择',
+              navigateText: '切换',
+              closeText: '关闭'
+            }
+          }
+        }
+      }
+    },
     nav: [
-      { text: 'Home', link: '/' },
-      { text: 'Examples', link: '/markdown-examples' }
-    ],
-
-    sidebar: [
       {
-        text: 'VitePress搭建过程',
+        text: '技术文档',
         items: [
-          { text: 'Markdown Examples', link: '/markdown-examples' },
-          { text: 'Runtime API Examples', link: '/api-examples' },
-          { text: 'test', link: '/test' },
-          { text: '1.vitepress搭建', link: '/vitepress/1.vitepress搭建' },
+          { text: 'vitepress', link: '/vitepress/1.VitePress搭建过程' },
+          { text: 'flutter', link: '/flutter/test' },
         ]
       }
     ],
-
-    socialLinks: [
-      { icon: 'github', link: 'https://github.com/vuejs/vitepress' }
-    ],
-    search: {
-      provider: 'local'
-    }
+    outlineTitle: '内容导航',
+    returnToTopLabel: '回到顶部',
+    sidebarMenuLabel: '章节目录',
+    darkModeSwitchLabel: '主题模式',
+    lastUpdatedText: '更新时间',
+    docFooter: {
+      prev: '上一篇',
+      next: '下一篇'
+    },
   }
-})
+}
+
+// https://vitepress.dev/reference/site-config
+export default defineConfig(withSidebar(userConfig, {
+  collapsed: true,
+  useTitleFromFileHeading: false
+}))
