@@ -1,0 +1,59 @@
+# 工作流的名称，如果省略，则使用当前文件名
+name: FengLing Blog
+
+# 从工作流生成的工作流运行的名称，如果省略，则使用提交时的commit信息
+run-name: FengLing Blog by @${{ github.actor }}
+
+# 触发部署的条件
+on:
+  # 每当 push 到 master 分支时触发部署
+  push:
+    tags:
+      - "*"
+    branches: 
+      - master
+
+# 当前流程要执行的任务，可以是多个。[my_first_job]就是一个任务
+jobs:
+  fengling-and-deploy:
+    # 任务的名称，不设置则默认my_first_job
+    name: fengling-and-deploy
+
+    # 运行所需要的虚拟机环境
+    runs-on: ubuntu-latest
+
+    # 每个任务下的运行步骤，短横杠 - 表示一个步骤，从上至下依次执行。
+    steps:
+      # clone 该仓库的源码到工作流中
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          # "最近更新时间"等 git 日志相关信息，需要拉取全部提交记录
+          # fetch-depth: 0
+          ref: "master"
+      # 安装pnpm
+      - name: Install pnpm
+        run: |
+          corepack enable
+          corepack prepare pnpm@latest --activate
+      # 安装 Node 环境
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          # 选择要使用的 node 版本
+          node-version: '20'
+
+      # 使用pnpm安装依赖
+      - name: Install dependencies
+        run: pnpm install
+      # 打包vitepress项目
+      - name: Build Site
+        run: pnpm run docs:build
+      # 将打包后dist里的产物提交到prod分支
+      - name: Deploy for Github 🚀
+        uses: JamesIves/github-pages-deploy-action@v4.4.1
+        with:
+          branch: prod
+          folder: .vitepress/dist
+          single-commit: true
+          clean: true
