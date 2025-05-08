@@ -117,5 +117,8 @@ export default defineConfig({
       message: 'fengling个人知识库',
       copyright: '版权所有 Feng Ling'
     }
+  },
+  markdown: {
+    lineNumbers: true, // 启用代码块行号
   }
 })
