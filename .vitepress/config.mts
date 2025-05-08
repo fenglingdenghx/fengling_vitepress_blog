@@ -1,5 +1,7 @@
 // vitepress 中的 TS 类型 和 defineConfig 方法
-import { DefaultTheme, defineConfig, UserConfig } from 'vitepress'
+import { defineConfig } from 'vitepress'
+import mdItCustomAttrs  from 'markdown-it-custom-attrs'
+
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   // 网站的标题
@@ -9,6 +11,25 @@ export default defineConfig({
   head: [
     // 添加图标
     [ "link", { rel: "icon", href: "/fengling_vitepress_blog/favicon.ico" } ],
+    ["link", { rel: "stylesheet", href: "https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css" },],
+    [
+      "script",
+      { src: "https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js" }
+    ],
+    [
+      "script",
+      { id: 'FancyboxBind' },
+      `;(() => {
+          // 使用Fancybox后需要绑定一下才会生效
+          window.addEventListener('load', function () {
+            if (window.Fancybox) {
+              Fancybox.bind("[data-fancybox]", {
+                // Your custom options
+              });
+            }
+          })
+        })()`
+    ],
   ],
   /**
    * 站点将部署到的 base URL。如果计划在子路径例如 GitHub 页面下部署站点，则需要设置此项。
@@ -120,5 +141,10 @@ export default defineConfig({
   },
   markdown: {
     lineNumbers: true, // 启用代码块行号
+    config(md) {
+      md.use(mdItCustomAttrs, 'image', {
+        'data-fancybox': 'gallery',
+      })
+    },
   }
 })
