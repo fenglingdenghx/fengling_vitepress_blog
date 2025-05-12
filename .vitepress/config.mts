@@ -11,11 +11,15 @@ export default defineConfig({
   head: [
     // 添加图标
     [ "link", { rel: "icon", href: "/fengling_vitepress_blog/favicon.ico" } ],
+    // 添加fancybox的css
     ["link", { rel: "stylesheet", href: "https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css" },],
+    // 添加fancybox的js
     [
       "script",
       { src: "https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js" }
     ],
+    // 为fancybox绑定事件
+    // 这里需要注意的是，fancybox的js文件需要在绑定事件之前加载完成
     [
       "script",
       { id: 'FancyboxBind' },
@@ -83,14 +87,15 @@ export default defineConfig({
         text: '技术文档',
         items: [
           { text: 'vitepress', link: '/vitepress/1.vitepress搭建过程' },
-          { text: 'flutter', link: '/flutter/test' },
+          // { text: 'flutter', link: '/flutter/test' },
         ]
       }
     ],
+    // 侧边栏
     sidebar: [
       {
         text: 'vitepress',
-        collapsed: true,
+        // collapsed: true,
         items: [
           {
             text: '1.vitepress搭建过程',
@@ -103,6 +108,10 @@ export default defineConfig({
           {
             text: '3.markdown语法示例',
             link: '/vitepress/3.markdown语法示例'
+          },
+          {
+            text: '4.vitepress实现图片预览',
+            link: '/vitepress/4.vitepress中实现图片预览'
           }
         ]
       }
@@ -140,8 +149,9 @@ export default defineConfig({
     }
   },
   markdown: {
-    lineNumbers: true, // 启用代码块行号
+    lineNumbers: false, // 启用代码块行号
     config(md) {
+      // 为markdown文档中所有的图片添加data-fancybox属性
       md.use(mdItCustomAttrs, 'image', {
         'data-fancybox': 'gallery',
       })
