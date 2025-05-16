@@ -83,39 +83,47 @@ export default defineConfig({
     },
     // 网站头部导航
     nav: [
-      {
-        text: '技术文档',
-        items: [
-          { text: 'vitepress', link: '/vitepress/1.vitepress搭建过程' },
-          // { text: 'flutter', link: '/flutter/test' },
-        ]
-      }
+      { text: 'vitepress', link: '/vitepress/1.vitepress搭建过程' },
+      { text: 'html', link: '/html/1.html简介' },
     ],
     // 侧边栏
-    sidebar: [
-      {
-        text: 'vitepress',
-        // collapsed: true,
-        items: [
-          {
-            text: '1.vitepress搭建过程',
-            link: '/vitepress/1.vitepress搭建过程'
-          },
-          {
-            text: '2.github自动化部署',
-            link: '/vitepress/2.github自动化部署'
-          },
-          {
-            text: '3.markdown语法示例',
-            link: '/vitepress/3.markdown语法示例'
-          },
-          {
-            text: '4.vitepress实现图片预览',
-            link: '/vitepress/4.vitepress中实现图片预览'
-          }
-        ]
-      }
-    ],
+    sidebar: {
+      '/vitepress': [
+        {
+          text: 'vitepress',
+          // collapsed: true,
+          items: [
+            {
+              text: '1.vitepress搭建过程',
+              link: '/vitepress/1.vitepress搭建过程'
+            },
+            {
+              text: '2.github自动化部署',
+              link: '/vitepress/2.github自动化部署'
+            },
+            {
+              text: '3.markdown语法示例',
+              link: '/vitepress/3.markdown语法示例'
+            },
+            {
+              text: '4.vitepress实现图片预览',
+              link: '/vitepress/4.vitepress中实现图片预览'
+            }
+          ]
+        }
+      ],
+      '/html': [
+        {
+          text: 'html',
+          // collapsed: true,
+          items: [
+            { text: '1.html简介', link: '/html/1.html简介' },
+            { text: '2.html属性', link: '/html/2.html属性' },
+            { text: '3.html标签', link: '/html/3.html标签' }
+          ]
+        }
+      ]
+    },
     // 网站右侧导航标题
     outlineTitle: '内容导航',
     // 用于自定义返回顶部按钮的标签，该标签仅在移动端视图中显示。
